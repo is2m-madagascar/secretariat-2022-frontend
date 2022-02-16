@@ -1,3 +1,9 @@
-const config = { server: { url: 'http://localhost:3600' } };
+import { environment } from '../../../environments/environment';
+
+const config = {
+  server: {
+    url: environment.url,
+  },
+};
 
 export default config;
