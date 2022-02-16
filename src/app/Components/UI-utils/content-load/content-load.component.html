@@ -1,0 +1,9 @@
+<mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+
+<div class="item" *ngIf="loading">
+  <ngx-skeleton-loader count="10" appearance="line"></ngx-skeleton-loader>
+</div>
+
+<mat-card class="item" *ngIf="noContent">
+  Il n'y a aucun étudiant sur la liste que vous recherchez.
+</mat-card>

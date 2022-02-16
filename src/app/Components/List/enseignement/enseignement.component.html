@@ -1,0 +1,75 @@
+<mat-tab-group>
+  <mat-tab label="Importer des enseignements">
+    <form>
+      <div class="side2side">
+        <mat-form-field appearance="outline">
+          <mat-label>Année scolaire</mat-label>
+          <mat-select [(value)]="selectedAnnee">
+            <mat-option *ngFor="let annee of anneeScolaire" [value]="annee">{{annee}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <div class="upload-file">
+          <label for="fileUpload">Choisissez le fichier</label>
+          <input type="file" (change)="onFileChange($event)" id="fileUpload" accept=".xls,.xlsx"/>
+        </div>
+
+      </div>
+
+      <button mat-button color="primary" (click)="onImportClick($event)" [disabled]="disabled">Commencer</button>
+    </form>
+  </mat-tab>
+
+  <mat-tab label="Voir les enseignements">
+    <div class="mentionForm">
+      <mat-form-field appearance="outline">
+        <mat-label>Année scolaire</mat-label>
+        <mat-select [(value)]="selectedAnnee" (selectionChange)="setAnneeForListChange($event)">
+          <mat-option *ngFor="let annee of anneeScolaire" [value]="annee">{{annee}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Mention</mat-label>
+        <mat-select [(value)]="selectedMentionForList" (selectionChange)="setMentionChanges($event)">
+          <mat-option *ngFor="let mention of mentions|async" [value]="mention.code">{{mention.mention}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <mat-tab-group [selectedIndex]="selectedNiveau" (selectedIndexChange)="setTabChange($event)">
+      <mat-tab *ngFor="let niveau of niveaux" label="{{niveau}}">
+
+        <!-- content here -->
+
+        <mat-paginator [length]="(enseignementsFromServer|async)?.size"
+                       [pageSize]="pageSize"
+                       [pageSizeOptions]="[5, 10, 25, 100]"
+                       (page)="setPage($event)"
+                       showFirstLastButtons="true"
+                       aria-label="Select page">
+        </mat-paginator>
+
+        <mat-accordion>
+          <mat-expansion-panel *ngFor="let ens of (enseignementsFromServer|async)?.data">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                {{ens.elementConstitutif}}
+              </mat-panel-title>
+              <mat-panel-description class="description">
+                <div class="end-list">
+                  <div class="custom-chip">{{getVolumeHoraireFromJson(ens.volumeHoraire)}} H</div>
+                  <div class="custom-chip">{{"S" + (ens.semestre)}}</div>
+                </div>
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <p><b>Enseignant:</b> {{ens.enseignant.nomPrenom.nom + " " + ens.enseignant.nomPrenom.prenoms}}</p>
+
+          </mat-expansion-panel>
+        </mat-accordion>
+        <!-- end content here -->
+
+      </mat-tab>
+    </mat-tab-group>
+  </mat-tab>
+</mat-tab-group>

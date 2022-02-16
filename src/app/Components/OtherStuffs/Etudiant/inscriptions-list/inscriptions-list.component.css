@@ -1,0 +1,10 @@
+.card-inscription{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 10px;
+}
+
+.beige{
+  background-color: beige;
+}

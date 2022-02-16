@@ -1,0 +1,53 @@
+<div class="commandButton">
+  <form class="searchForm">
+
+    <mat-form-field appearance="outline" class="searchCrirteria">
+      <mat-label>Année scolaire</mat-label>
+      <mat-select [formControl]="anneeSelected" (selectionChange)="change('annee', $event)">
+        <mat-option *ngFor="let annee of anneeScolaire" [value]="annee">
+          {{annee}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="searchCrirteria">
+      <mat-label>Niveau</mat-label>
+      <mat-select [formControl]="niveauSelected" (selectionChange)="change('niveau', $event)">
+        <mat-option *ngFor="let niveau of niveaux" [value]="niveau">
+          {{niveau}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="searchCrirteria">
+      <mat-label>Mention</mat-label>
+      <mat-select [formControl]="mentionSelected" (selectionChange)="change('mention', $event)">
+        <mat-option *ngFor="let mention of mentions" [value]="mention.code">
+          {{mention.mention}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+  </form>
+</div>
+
+<div *ngIf="!consultation">
+  <mat-paginator [length]="(enseignement|async)?.size"
+                 [pageSize]="pageSize"
+                 [pageSizeOptions]="[5, 10, 25, 100]"
+                 showFirstLastButtons="true"
+                 (page)="setPage($event)"
+                 aria-label="Select page">
+  </mat-paginator>
+  <app-content-load [loading]="loading" [noContent]="noContent"></app-content-load>
+  <mat-selection-list [multiple]="false" (selectionChange)="selectCours($event)">
+    <mat-list-option *ngFor="let ens of (enseignement|async)?.data" [value]="ens">
+      {{ens.elementConstitutif}}
+      <mat-divider></mat-divider>
+    </mat-list-option>
+  </mat-selection-list>
+</div>
+
+<div *ngIf="consultation">
+<app-cours-list-for-specified-ens [ens_id]="selectedEns._id" [elementConst]="selectedEns.elementConst"></app-cours-list-for-specified-ens>
+</div>

@@ -1,1 +1,129 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.mat-drawer-inner-container{ overflow: hidden !important; }
+
+.filter {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
+
+.commandButton {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.divider {
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
+.searchForm {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.searchCrirteria {
+  width: 150px;
+}
+
+.description {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.searchField {
+  width: 300px;
+}
+
+.end-list {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  align-items: center;
+}
+
+.custom-chip {
+  background-color: cornflowerblue;
+  border-radius: 25px;
+  color: white;
+  padding: 3px;
+  min-width: 50px;
+  width: fit-content;
+  max-width: 300px;
+  text-align: center;
+}
+
+
+
+/* Pour tous les formulaires */
+.container-create-form{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-input{
+  width: 50%;
+}
+
+.container-inner-form{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.container-inner-form mat-form-field, .container-create-form .container-inner-form button{
+  width: 100%;
+}
+/* fin pour tous les formulaires*/
+
+.frais{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 10px;
+}
+
+.list-item{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+.mentionForm, payerEcolage{
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+}
+
+.tab-container{
+  margin: 30px;
+}
+
+.margin-bottom{
+  margin-bottom: 15px;
+}
+
+.width-100{
+  width: 100%;
+}

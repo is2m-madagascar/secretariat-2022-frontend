@@ -1,0 +1,23 @@
+.example-container {
+  min-height: 100vh;
+}
+
+.example-sidenav-content {
+  margin-top: 20px;
+  height: 100%;
+  padding: 25px;
+}
+
+.example-sidenav {
+  padding: 5px;
+  flex: 1 1 auto;
+  height: 100%;
+}
+
+.menuList{
+  border-radius: 5px;
+  min-width: 200px;
+  display: flex;
+  background-color: #f0f0f0;
+  margin-bottom: 5px;
+}

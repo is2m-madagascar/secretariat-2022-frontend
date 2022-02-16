@@ -1,0 +1,13 @@
+<mat-drawer-container class="example-container">
+
+  <mat-drawer opened class="example-sidenav" mode="side">
+    <mat-nav-list>
+      <a class="menuList" mat-list-item href="{{link.link}}" *ngFor="let link of links"> {{link.label}} </a>
+    </mat-nav-list>
+  </mat-drawer>
+
+  <div class="example-sidenav-content">
+    <router-outlet></router-outlet>
+  </div>
+
+</mat-drawer-container>

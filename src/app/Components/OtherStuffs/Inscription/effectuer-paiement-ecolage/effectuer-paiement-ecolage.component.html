@@ -1,0 +1,35 @@
+<div class="payerEcolage" *ngFor="let paiement of paiements">
+  <mat-form-field class="space-cote" appearance="outline">
+    <mat-label>Montant</mat-label>
+    <input matInput disabled [value]="paiement.montant">
+  </mat-form-field>
+
+  <mat-form-field class="space-cote" appearance="outline">
+    <mat-label>Motif/Mois</mat-label>
+    <input matInput disabled [value]="paiement.motif">
+  </mat-form-field>
+
+  <button mat-flat-button color="warn" (click)="deletePaiement(paiement)">Supprimer</button>
+</div>
+<form>
+  <div class="payerEcolage">
+    <mat-form-field class="space-cote" appearance="outline">
+      <mat-label>Montant</mat-label>
+      <input matInput placeholder="50000" [formControl]="montant">
+    </mat-form-field>
+
+
+    <mat-form-field class="space-cote" appearance="outline">
+      <mat-label>Motif/Mois</mat-label>
+      <mat-select [formControl]="motif">
+        <mat-option *ngFor="let motif of motifs" [value]="motif">
+          {{motif}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <button class="space-cote" mat-stroked-button type="button" color="accent" (click)="ajouterPayement()">Ajouter paiement</button>
+  </div>
+
+  <button mat-flat-button type="button" color="primary" (click)="effectuerPayements()">Enregister les paiements</button>
+</form>

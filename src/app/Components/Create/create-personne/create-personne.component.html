@@ -1,0 +1,48 @@
+<form class="container-create-form" (ngSubmit)="onClick($event)" [formGroup]="formGroup">
+
+  <div class="mat-headline">
+    Ajout d'une personne
+  </div>
+
+  <mat-form-field appearance="outline" class="form-input">
+    <mat-label>Matricule</mat-label>
+    <input matInput formControlName="matricule" placeholder="1021"/>
+    <mat-error>Insérez un nombre</mat-error>
+  </mat-form-field>
+
+  <div class="form-input container-inner-form">
+    <mat-form-field appearance="outline">
+      <mat-label>Nom</mat-label>
+      <input matInput formControlName="nom" placeholder="Randria">
+      <mat-error>Vérifiez le nom saisie</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Prénom</mat-label>
+      <input matInput formControlName="prenoms" placeholder="André">
+      <mat-error>Vérifiez le prénom saisie</mat-error>
+    </mat-form-field>
+  </div>
+
+  <div class="form-input container-inner-form">
+    <mat-form-field appearance="outline">
+      <mat-label>Ajouter un enseignant ou un etudiant</mat-label>
+      <mat-select formControlName="type" (selectionChange)="onSelectionChange($event)">
+        <mat-option *ngFor="let opt of choix" [value]="opt.id">{{opt.label}}</mat-option>
+      </mat-select>
+      <mat-error>Vous devez assigner ce champ</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" *ngIf="showGrade">
+      <mat-label>Grade</mat-label>
+      <mat-select formControlName="grade">
+        <mat-option *ngFor="let grade of grades" [value]="grade.id">{{grade.label}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="form-input container-inner-form" matTooltip="Veuillez saisir tous les informations requises pour activer ce boutton" [matTooltipDisabled]="false">
+    <button mat-flat-button color="warn" type="reset">Annuler</button>
+    <button mat-flat-button color="primary" [disabled]="!formGroup.valid">Créer</button>
+  </div>
+</form>

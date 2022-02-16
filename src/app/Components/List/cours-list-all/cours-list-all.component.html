@@ -1,0 +1,33 @@
+<div class="mat-title">Liste de tous les cours éfféctués</div>
+
+<div class="commandButton">
+  <form class="searchForm">
+
+    <mat-form-field appearance="outline" class="searchCrirteria">
+      <mat-label>Statut du cours</mat-label>
+      <mat-select [formControl]="closed" (selectionChange)="change($event)">
+        <mat-option *ngFor="let state of closedStatus" [value]="state.value">
+          {{state.label}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+  </form>
+
+  <mat-paginator [length]="cours?.size"
+                 [pageSize]="pageSize"
+                 [pageSizeOptions]="[5, 10, 25, 100]"
+                 (page)="setPage($event)"
+                 showFirstLastButtons="true"
+                 aria-label="Select page">
+  </mat-paginator>
+</div>
+
+<mat-list>
+  <mat-list-item *ngFor="let cour of cours?.data">
+    <mat-divider></mat-divider>
+    {{cour.enseignement.elementConstitutif + " débuté le " + customFormatDate(cour.debut) + (cour.closed ? " et a pris fin le " + customFormatDate(cour.fin) : "")}}
+    <button mat-stroked-button color="warn" *ngIf="!cour.closed" (click)="fermerCours(cour._id)">Fermer</button>
+    <mat-divider></mat-divider>
+  </mat-list-item>
+</mat-list>

@@ -1,0 +1,27 @@
+<div class="commandButton">
+  <form class="searchForm">
+    <mat-form-field appearance="outline" class="searchCrirteria">
+      <mat-label>Année scolaire</mat-label>
+      <mat-select [formControl]="anneeScolaire" (selectionChange)="setAnnee($event)">
+        <mat-option *ngFor="let annee of anneeList" [value]="annee">
+          {{annee}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+  </form>
+</div>
+
+<div class="margin-bottom">
+  <mat-divider></mat-divider>
+</div>
+
+<mat-list>
+  <mat-list-item *ngFor="let ens of (enseignements|async)?.data">{{ens.elementConstitutif }}
+    <div class="custom-chip margin-cote">{{ens.niveauEnseigne}}</div>
+    <div class="custom-chip margin-cote" *ngIf="ens.mention[0]?.code">{{ens.mention[0]?.code}}</div>
+    <div class="custom-chip margin-cote" *ngIf="ens.mention[1]?.code">{{ens.mention[1]?.code}}</div>
+    <div class="custom-chip margin-cote">{{getHours(ens.volumeHoraire)}} H</div>
+    <mat-divider></mat-divider>
+  </mat-list-item>
+</mat-list>

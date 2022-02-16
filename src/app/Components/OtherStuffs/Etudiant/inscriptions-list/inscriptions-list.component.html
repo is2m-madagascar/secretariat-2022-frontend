@@ -1,0 +1,22 @@
+<ngx-skeleton-loader appearance="line" count="3" *ngIf="loading; else noloading"></ngx-skeleton-loader>
+
+<ng-template #noloading>
+  <div class="card-inscription">
+    <mat-card class="beige" *ngFor="let insc of (inscriptions|async)?.data">
+      <mat-card-title>
+        {{insc.niveau + " - " + insc.anneeScolaire}}
+      </mat-card-title>
+      <mat-card-subtitle>
+        {{insc.mention.mention}}
+      </mat-card-subtitle>
+      <mat-card-content>
+        Spécialisation: {{insc.mention.specialisation || " - "}}
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary">Voir en détails</button>
+      </mat-card-actions>
+
+    </mat-card>
+  </div>
+</ng-template>
+
