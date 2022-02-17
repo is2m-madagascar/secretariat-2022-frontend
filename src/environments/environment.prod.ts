@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  url: 'https://backend-secretariat-is2m.herokuapp.com/',
+  url: 'https://backend-secretariat-is2m.herokuapp.com',
 };
