@@ -15,6 +15,7 @@ const menuList = [
   { label: 'Facture', link: 'facture' },
   { label: 'Cours', link: 'cours' },
   { label: 'Configurations', link: 'config' },
+  { label: 'Journaux de modifications', link: 'changelogs' },
 ];
 
 export default menuList;

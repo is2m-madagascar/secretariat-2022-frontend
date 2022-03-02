@@ -8,6 +8,7 @@ import { EtudiantContainerComponent } from './Components/Containers/etudiant-con
 import { EnseignantContainerComponent } from './Components/Containers/enseignant-container/enseignant-container.component';
 import { InscriptionContainerComponent } from './Components/Containers/inscription-container/inscription-container.component';
 import { FactureContainerComponent } from './Components/Containers/facture-container/facture-container.component';
+import { ChangelogsComponent } from './Components/changelogs/changelogs.component';
 
 const routes: Routes = [
   {
@@ -27,10 +28,15 @@ const routes: Routes = [
     path: 'enseignant',
     component: EnseignantContainerComponent,
   },
+  
   { path: 'enseignement', component: EnseignementComponent },
   { path: 'facture', component: FactureContainerComponent },
   { path: 'cours', component: CoursContainerComponent },
   { path: 'config', component: ConfigurationsComponent },
+  {
+    path: 'changelogs',
+    component: ChangelogsComponent,
+  },
 ];
 
 @NgModule({

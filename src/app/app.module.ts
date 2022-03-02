@@ -57,6 +57,7 @@ import { CoursListByEnseignantComponent } from './Components/List/cours-list-by-
 import { CoursCreateFormComponent } from './Components/OtherStuffs/Cours/cours-create-form/cours-create-form.component';
 import { EnseignementsListComponent } from './Components/OtherStuffs/Enseignants/enseignements-list/enseignements-list.component';
 import { FactureContainerComponent } from './Components/Containers/facture-container/facture-container.component';
+import { ChangelogsComponent } from './Components/changelogs/changelogs.component';
 registerLocaleData(localeFr);
 
 @NgModule({
@@ -88,6 +89,7 @@ registerLocaleData(localeFr);
     CoursCreateFormComponent,
     EnseignementsListComponent,
     FactureContainerComponent,
+    ChangelogsComponent,
   ],
   imports: [
     BrowserModule,
