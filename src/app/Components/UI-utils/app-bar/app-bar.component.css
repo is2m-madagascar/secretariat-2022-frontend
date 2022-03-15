@@ -1,3 +1,21 @@
-.example-spacer {
-  flex: 1 1 auto;
+.topbar-desktop-view {
+  display: block;
+}
+.topbar-mobile-view {
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  .topbar-desktop-view {
+    display: none;
+  }
+  .topbar-mobile-view {
+    display: block;
+  }
+}
+
+.side-to-side {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
 }

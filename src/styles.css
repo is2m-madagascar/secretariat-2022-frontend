@@ -2,10 +2,27 @@
 
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 
-.mat-drawer-inner-container{ overflow: hidden !important; }
+.spacer {
+  flex: 1 1 auto;
+}
+
+.space-onside-tiny {
+  margin-left: 1px;
+  margin-right: 1px;
+}
+
+.scroll-x-hidden {
+  overflow-x: hidden;
+}
 
 .filter {
   display: flex;
@@ -14,6 +31,16 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   gap: 10px;
 }
 
+.mat-drawer-inner-container {
+  overflow: hidden !important;
+}
+
+.filter {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
 
 .commandButton {
   display: flex;
@@ -64,10 +91,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   text-align: center;
 }
 
-
-
 /* Pour tous les formulaires */
-.container-create-form{
+.container-create-form {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -75,11 +100,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   justify-content: center;
 }
 
-.form-input{
+.form-input {
   width: 50%;
 }
 
-.container-inner-form{
+.container-inner-form {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -87,12 +112,13 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   gap: 5px;
 }
 
-.container-inner-form mat-form-field, .container-create-form .container-inner-form button{
+.container-inner-form mat-form-field,
+.container-create-form .container-inner-form button {
   width: 100%;
 }
 /* fin pour tous les formulaires*/
 
-.frais{
+.frais {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
@@ -101,7 +127,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   margin-bottom: 10px;
 }
 
-.list-item{
+.list-item {
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -109,21 +135,21 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   align-items: center;
 }
 
-
-.mentionForm, payerEcolage{
+.mentionForm,
+payerEcolage {
   display: flex;
   flex-direction: row;
   gap: 15px;
 }
 
-.tab-container{
+.tab-container {
   margin: 30px;
 }
 
-.margin-bottom{
+.margin-bottom {
   margin-bottom: 15px;
 }
 
-.width-100{
+.width-100 {
   width: 100%;
 }

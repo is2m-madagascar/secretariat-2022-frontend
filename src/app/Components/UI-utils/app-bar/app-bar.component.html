@@ -1,3 +1,41 @@
 <mat-toolbar color="primary">
-  <span>IS2M Secretariat</span>
+
+  <mat-toolbar-row>
+    <button mat-icon-button (click)="toogleSidebar()" matTooltip="Ouvrir/Fermer le menu">
+      <mat-icon>widgets</mat-icon>
+    </button>
+    <span>{{title}}</span>
+
+    <!--end can view on desktop screen-->
+    <div class="spacer"></div>
+
+    <!--Can view on desktop screen-->
+    <div class="topbar-desktop-view">
+      <div class="side-to-side">
+        <button mat-flat-button color="accent">
+          <mat-icon>history</mat-icon>
+        Changelogs</button>
+        <button mat-flat-button color="warn">
+          <mat-icon>logout</mat-icon>
+        Déconnexion</button>
+      </div>
+    </div>
+    <!--end can view on desktop screen-->
+  </mat-toolbar-row>
+
+  <!--Can view on mobile screen-->
+  <mat-toolbar-row class="topbar-mobile-view">
+    <div class="side-to-side">
+      <button mat-flat-button color="accent">
+        <mat-icon>history</mat-icon>
+        Changelogs
+      </button>
+      
+      <button mat-flat-button color="warn">
+        <mat-icon>logout</mat-icon>
+        Déconnexion
+      </button>
+    </div>
+  </mat-toolbar-row>
+  <!--end can view on mobile screen-->
 </mat-toolbar>

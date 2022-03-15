@@ -1,0 +1,6 @@
+<mat-nav-list class="scroll-x-hidden">
+    <mat-list-item *ngFor="let nav of navList" (click)="navigateTo(nav.url)">
+      <mat-icon matListIcon>{{nav.icon}}</mat-icon>
+      <h3 matLine> {{nav.label}} </h3>
+    </mat-list-item>
+</mat-nav-list>

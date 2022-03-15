@@ -3,19 +3,20 @@ import { map, Observable } from 'rxjs';
 import config from '../Config/Variables';
 import { makeParams, makePage } from '../Utils/ServiceUtils';
 import { HttpClient } from '@angular/common/http';
+import { CustomLogService } from "./custom-log.service";
 
 @Injectable({
   providedIn: 'root',
 })
 export class PersonneService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private console: CustomLogService) {}
 
   getPersonnes(
     params: any[],
     page?: number,
     pageSize?: number
   ): Observable<any> {
-    console.log(
+    this.console.log(
       config.server.url +
         '/personnes?' +
         makePage(page, pageSize) +
@@ -40,6 +41,22 @@ export class PersonneService {
           };
         })
       );
+  }
+
+  getPersonnesV2(
+    params: any[],
+    page?: number,
+    pageSize?: number
+  ){
+    const url = config.server.url + '/personnes?' + makePage(page, pageSize) + makeParams(params);
+    this.console.log(url);
+    return this.http
+      .get<[any]>(
+        config.server.url +
+        '/personnes?' +
+        makePage(page, pageSize) +
+        makeParams(params)
+      ).toPromise();
   }
 
   getPersonneByMatricule(matricule: Number): Observable<any> {

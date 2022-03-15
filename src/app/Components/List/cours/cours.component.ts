@@ -1,10 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import niveauxList from '../../../Shared/List/NiveauxList';
+//import niveauxList from '../../../Shared/List/NiveauxList';
 import anneeList from '../../../Shared/List/AnneeList';
 import mentionsList from '../../../Shared/List/MentionsList';
 import { FormControl } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
 import { EnseignementService } from '../../../Shared/Service/enseignement.service';
+import { NiveauService } from 'src/app/Shared/Service/niveau.service';
 
 @Component({
   selector: 'app-cours',
@@ -12,7 +13,8 @@ import { EnseignementService } from '../../../Shared/Service/enseignement.servic
   styleUrls: ['./cours.component.css'],
 })
 export class CoursComponent implements OnInit, OnDestroy {
-  niveaux = ['Aucun'].concat([...niveauxList]);
+
+  niveaux : any [] = [];
   anneeScolaire = [...anneeList];
   mentions = [{ mention: 'Aucun', code: 'Aucun' }].concat([...mentionsList]);
 
@@ -41,10 +43,14 @@ export class CoursComponent implements OnInit, OnDestroy {
 
   sub: Subscription[] = [];
 
-  constructor(private enseignementService: EnseignementService) {}
+  constructor(private enseignementService: EnseignementService, private niveauxService: NiveauService) {}
 
   ngOnInit(): void {
-    this.getEnseignements();
+    this.niveauxService.getNiveaux().subscribe(x => {
+      //TODO asina aucun
+      this.niveaux = [...x.data];
+      this.getEnseignements();
+    })
   }
 
   ngOnDestroy(): void {

@@ -5,9 +5,10 @@ import { makeEnseignement } from '../../../Shared/Utils/EnseignementUtils';
 import { EnseignementService } from '../../../Shared/Service/enseignement.service';
 import { Observable, Subscription } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import NiveauxList from '../../../Shared/List/NiveauxList';
+//import NiveauxList from '../../../Shared/List/NiveauxList';
 import { VariableService } from '../../../Shared/Service/variable.service';
 import AnneeList from '../../../Shared/List/AnneeList';
+import { NiveauService } from 'src/app/Shared/Service/niveau.service';
 
 @Component({
   selector: 'app-enseignement',
@@ -33,7 +34,7 @@ export class EnseignementComponent implements OnInit, OnDestroy {
 
   enseignementsFromServer: Observable<any> = new Observable<any>();
 
-  niveaux = NiveauxList;
+  niveaux = [];
   selectedNiveau = 0;
   pageSize = 10;
   page = 1;
@@ -44,12 +45,17 @@ export class EnseignementComponent implements OnInit, OnDestroy {
   constructor(
     private enseignementService: EnseignementService,
     private variableService: VariableService,
+    private niveauxService: NiveauService,
     private _snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
-    this.mentions = this.variableService.getMentions();
-    this.getEnseignements();
+    this.niveauxService.getNiveaux().subscribe(
+      x => {
+        this.niveaux = x.data;
+        this.mentions = this.variableService.getMentions();
+        this.getEnseignements();
+      })
   }
 
   onFileChange = (file: any) => {
@@ -113,7 +119,7 @@ export class EnseignementComponent implements OnInit, OnDestroy {
   }
 
   setTabChange = ($event: any) => {
-    this.selectedNiveauForList = NiveauxList[$event];
+    this.selectedNiveauForList = this.niveaux[$event];
     this.getEnseignements();
   };
 

@@ -1,20 +1,29 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map, Observable, tap } from 'rxjs';
+import { map, Observable} from 'rxjs';
 import Variables from '../Config/Variables';
 import { makePage, makeParams } from '../Utils/ServiceUtils';
+import { CustomLogService } from "./custom-log.service";
 
 @Injectable({
   providedIn: 'root',
 })
 export class InscriptionsService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private console: CustomLogService) {}
 
   getInsciptions(
     params?: any[],
     page?: Number,
     pageSize?: Number
   ): Observable<any> {
+
+    this.console.log(
+      Variables.server.url +
+          '/inscriptions?' +
+          makePage(page, pageSize) +
+          makeParams(params)
+    )
+
     return this.http
       .get(
         Variables.server.url +
@@ -34,6 +43,15 @@ export class InscriptionsService {
           };
         })
       );
+  }
+
+  async getInscriptionsV2(
+    params?: any[],
+    page?: Number,
+    pageSize?: Number
+  ): Promise<any>{
+    const url = Variables.server.url + '/inscriptions?' + makePage(page, pageSize) + makeParams(params);
+    return this.http.get(url).toPromise();
   }
 
   getInscriptionById(id: Number): Observable<any> {

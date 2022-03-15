@@ -15,22 +15,22 @@ const routes: Routes = [
     component: EtudiantContainerComponent,
   },
   {
-    path: 'etudiant',
+    path: 'etudiants',
     component: EtudiantContainerComponent,
   },
   {
     path: 'ecolage/payer',
     component: EffectuerPaiementEcolageComponent,
   },
-  { path: 'inscription', component: InscriptionContainerComponent },
+  { path: 'inscriptions', component: InscriptionContainerComponent },
   {
-    path: 'enseignant',
+    path: 'enseignants',
     component: EnseignantContainerComponent,
   },
-  { path: 'enseignement', component: EnseignementComponent },
-  { path: 'facture', component: FactureContainerComponent },
+  { path: 'enseignements', component: EnseignementComponent },
+  { path: 'facturations', component: FactureContainerComponent },
   { path: 'cours', component: CoursContainerComponent },
-  { path: 'config', component: ConfigurationsComponent },
+  { path: 'configurations', component: ConfigurationsComponent },
 ];
 
 @NgModule({

@@ -5,6 +5,8 @@
 export const environment = {
   production: false,
   url: 'http://localhost:3600',
+  //url: 'https://backend-secretariat-is2m.herokuapp.com'
+  isLogEnabled: true,
 };
 
 /*

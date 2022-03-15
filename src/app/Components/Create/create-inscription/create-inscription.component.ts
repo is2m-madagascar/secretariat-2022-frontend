@@ -10,11 +10,12 @@ import { PersonneService } from '../../../Shared/Service/personne.service';
 import { makeCriteria } from '../../../Shared/Utils/PersonneCriteria';
 import { VariableService } from '../../../Shared/Service/variable.service';
 import anneeList from '../../../Shared/List/AnneeList';
-import niveauxList from '../../../Shared/List/NiveauxList';
+//import niveauxList from '../../../Shared/List/NiveauxList';
 import mentionsList from '../../../Shared/List/MentionsList';
 import { InscriptionsService } from '../../../Shared/Service/inscriptions.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { NiveauService } from 'src/app/Shared/Service/niveau.service';
 
 @Component({
   selector: 'app-create-inscription',
@@ -25,7 +26,7 @@ export class CreateInscriptionComponent implements OnInit {
   criteria = new FormControl('Nom');
   searchString = new FormControl('');
   disabled = true;
-  niveaux = niveauxList;
+  niveaux = [];
 
   specialisations: any = {};
 
@@ -56,12 +57,16 @@ export class CreateInscriptionComponent implements OnInit {
     private variableService: VariableService,
     private inscriptionService: InscriptionsService,
     private _snackBar: MatSnackBar,
-    private route: Router
+    private route: Router,
+    private niveauxService: NiveauService
   ) {}
 
   ngOnInit(): void {
-    this.buildFormGroup();
-    this.fetchMentions();
+    this.niveauxService.getNiveaux().subscribe(x => {
+      this.niveaux = x.data;
+      this.buildFormGroup();
+      this.fetchMentions();
+    })
   }
 
   buildFormGroup() {

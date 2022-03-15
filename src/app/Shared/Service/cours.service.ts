@@ -3,7 +3,6 @@ import { map, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import Variables from '../Config/Variables';
 import { makePage, makeParams } from '../Utils/ServiceUtils';
-import { VariableService } from './variable.service';
 
 @Injectable({
   providedIn: 'root',

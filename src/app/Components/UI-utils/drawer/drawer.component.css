@@ -14,10 +14,10 @@
   height: 100%;
 }
 
-.menuList{
-  border-radius: 5px;
+.menuList {
+  /*border-radius: 5px;*/
   min-width: 200px;
-  display: flex;
-  background-color: #f0f0f0;
-  margin-bottom: 5px;
+  /*display: flex;*/
+  /*background-color: #f0f0f0;*/
+  /*margin-bottom: 5px;*/
 }

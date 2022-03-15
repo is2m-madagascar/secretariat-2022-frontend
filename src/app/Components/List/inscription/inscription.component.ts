@@ -1,9 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
-import { InscriptionsService } from '../../../Shared/Service/inscriptions.service';
-import NiveauxList from '../../../Shared/List/NiveauxList';
-import { VariableService } from '../../../Shared/Service/variable.service';
-import AnneeList from '../../../Shared/List/AnneeList';
+import { Component, OnDestroy, OnInit } from "@angular/core";
+import { InscriptionsService } from "../../../Shared/Service/inscriptions.service";
+import { NiveauService } from "src/app/Shared/Service/niveau.service";
+import { MentionService } from "src/app/Shared/Service/mention.service";
+import AnneeList from "../../../Shared/List/AnneeList";
+import { FormControl } from "@angular/forms";
+import { MatTableDataSource } from "@angular/material/table";
 
 @Component({
   selector: 'app-inscription',
@@ -11,97 +12,115 @@ import AnneeList from '../../../Shared/List/AnneeList';
   styleUrls: ['./inscription.component.css'],
 })
 export class InscriptionComponent implements OnInit, OnDestroy {
-  inscriptions: Observable<any> = new Observable<any>();
-  mentions: Observable<any> = new Observable<any>();
 
-  niveaux = NiveauxList;
+  inscriptions: any[] = [];
+  responseSize: any = null;
+  responsePage: any = null;
+  mentions: any[] = [];
+  niveaux: any[] = [];
+
   annees = AnneeList;
 
-  selectedNiveau = 0;
-  selectedMentionCode = 'MI';
-  selectedAnnee = new Date().getFullYear();
-
+  //Page config
   loading = true;
   noContent = false;
-
   pageSize = 10;
   page = 1;
+  //End page config
 
-  sub: Subscription[] = [];
+  //form
+  selectedNiveau = new FormControl();
+  selectedMention = new FormControl();
+  selectedAnnee = new FormControl(new Date().getFullYear());
+  //end Form
+
+  //columns
+  displayedColumns: string[] = ['Matricule', 'Nom', 'Prénom', 'Actions'];
+  dataSource = new MatTableDataSource<any>(this.inscriptions);
+  //end columns
 
   constructor(
     private inscriptionService: InscriptionsService,
-    private variablesService: VariableService
+    private niveauxService: NiveauService,
+    private mentionService: MentionService
   ) {}
 
   ngOnDestroy(): void {
-    this.sub.forEach((element) => {
-      element.unsubscribe();
-    });
   }
 
-  ngOnInit(): void {
-    this.mentions = this.variablesService.getMentions();
-    this.getInscriptions();
+  async ngOnInit() {
+    new Promise(async () => {
+      await this.getNiveaux();
+      await this.getMentions();
+    }).then(async () => {
+      await this.getInscription();
+    })
   }
 
-  getInscriptions(pageIndex?: number, pageSize?: number) {
-    this.loading = true;
-    this.inscriptions = this.inscriptionService.getInsciptions(
-      [
-        this.makeNiveauParams(),
-        this.makeAnneeParams(),
-        this.makeMentionParams(),
-      ],
+  async getInscription(pageIndex?: number, pageSize?: number){
+    const params = [
+      this.makeNiveauParams(),
+      this.makeAnneeParams(),
+      await this.makeMentionParams(),
+    ]
+    const temp: any = await this.inscriptionService.getInscriptionsV2(
+      params,
       pageIndex ? pageIndex + 1 : this.page,
       pageSize ? pageSize : this.pageSize
-    );
-
-    this.sub.push(
-      this.inscriptions.subscribe((data) => {
-        this.loading = false;
-        if (data.data.length === 0) {
-          this.noContent = true;
-        }
-      })
-    );
+    )
+    console.log(temp)
+    this.inscriptions = temp?.data[0];
+    this.responseSize = temp?.message.pagination.totalElements;
+    this.responsePage = temp?.message.pagination.pageIndex;
+    this.dataSource = new MatTableDataSource<any>(this.inscriptions);
+    return this.inscriptions;
   }
 
-  setPage($event: any) {
-    this.getInscriptions($event.pageIndex, $event.pageSize);
+  async getNiveaux(){
+    this.niveaux = (await this.niveauxService.getNiveauxV2()).data[0];
+    this.selectedNiveau.setValue(this.niveaux[0]||null);
+    return this.niveaux;
   }
 
-  setTabChange($event: any) {
-    this.selectedNiveau = $event;
-    this.getInscriptions();
+  async getMentions(){
+    this.mentions = (await this.mentionService.getMentionV2()).data[0];
+    this.selectedMention.setValue(this.mentions[0]||null);
+    return this.mentions;
+  }
+
+  async setTabChange($event: any){
+    this.selectedNiveau.setValue($event);
+    await this.getInscription();
+  }
+
+  async setPage($event: any){
+    await this.getInscription($event.pageIndex, $event.pageSize);
   }
 
   private makeNiveauParams() {
-    let value = 'L1';
-    switch (this.selectedNiveau) {
-      case 1:
-        value = 'L2';
-        break;
-      case 2:
-        value = 'L3';
-        break;
-      case 3:
-        value = 'M1';
-        break;
-      case 4:
-        value = 'M2';
-        break;
-      default:
-        value = 'L1';
-        break;
+    try{
+      let value = this.niveaux[this.selectedNiveau.value]._id
+      return { params: 'niveau', value }
     }
+    catch(e){
+      console.error(e)
+    }
+    return null;
+  }
 
-    return { params: 'niveau', value };
-  }
   private makeAnneeParams() {
-    return { params: 'anneeScolaire', value: this.selectedAnnee.toString() };
+    return { params: 'anneeScolaire', value: this.selectedAnnee.value };
   }
-  private makeMentionParams() {
-    return { params: 'mention.code', value: this.selectedMentionCode };
+
+  private async makeMentionParams() {
+    try{
+      //@ts-ignore
+      let value = this.selectedMention.value || (await this.mentionService.getMentionV2()).data[0][0]
+      return { params: 'mention', value: value._id }
+    }
+    catch(e){
+      console.error(e)
+    }
+    return null;
   }
 }

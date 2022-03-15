@@ -59,6 +59,9 @@ import { EnseignementsListComponent } from './Components/OtherStuffs/Enseignants
 import { FactureContainerComponent } from './Components/Containers/facture-container/facture-container.component';
 registerLocaleData(localeFr);
 
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { SidenavComponent } from './Components/UI-utils/sidenav/sidenav.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -88,8 +91,10 @@ registerLocaleData(localeFr);
     CoursCreateFormComponent,
     EnseignementsListComponent,
     FactureContainerComponent,
+    SidenavComponent,
   ],
   imports: [
+    FlexLayoutModule,
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,

@@ -1,5 +1,4 @@
-<div class="filter">
-  <div></div>
+<!--div class="filter">
   <mat-form-field appearance="outline">
     <mat-label>Année scolaire</mat-label>
     <mat-select [(value)]="selectedAnnee" (selectionChange)="getInscriptions()">
@@ -9,16 +8,14 @@
 
   <mat-form-field appearance="outline">
     <mat-label>Mention</mat-label>
-    <mat-select [(value)]="selectedMentionCode" (selectionChange)="getInscriptions()">
-      <mat-option *ngFor="let mention of mentions|async" [value]="mention.code">{{mention.mention}}</mat-option>
+    <mat-select [(value)]="selectedMention" (selectionChange)="getInscriptions()">
+      <mat-option *ngFor="let mention of (mentionsObs|async)?.data" [value]="mention">{{mention.mentionName}}</mat-option>
     </mat-select>
   </mat-form-field>
 </div>
 
 <mat-tab-group [selectedIndex]="selectedNiveau" (selectedIndexChange)="setTabChange($event)">
-  <mat-tab *ngFor="let niveau of niveaux" label="{{niveau}}">
-
-    <!-- content here -->
+  <mat-tab *ngFor="let niveau of (niveauxObs|async)?.data" label="{{niveau.niveau}}">
 
     <mat-paginator [length]="(inscriptions|async)?.size"
                    [pageSize]="pageSize"
@@ -59,7 +56,65 @@
       </mat-card>
     </ng-template>
 
-    <!-- end content here -->
+  </mat-tab>
+</mat-tab-group-->
+
+<div class="filter">
+  <mat-form-field appearance="outline">
+    <mat-label>Année scolaire</mat-label>
+    <mat-select [formControl]="selectedAnnee" (selectionChange)="getInscription()">
+      <mat-option *ngFor="let annee of annees" [value]="annee">{{annee}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Mention</mat-label>
+    <mat-select [formControl]="selectedMention" (selectionChange)="getInscription()">
+      <mat-option *ngFor="let mention of mentions" [value]="mention">{{mention.mentionName}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
+<mat-tab-group [formControl]="selectedNiveau" ngDefaultControl (selectedIndexChange)="setTabChange($event)">
+  <mat-tab *ngFor="let niveau of niveaux" label="{{niveau.niveau}}">
+
+    <table mat-table [dataSource]="dataSource" class="width-100">
+
+      <!-- Position Column -->
+      <ng-container matColumnDef="Matricule">
+        <th mat-header-cell *matHeaderCellDef> Matricule </th>
+        <td mat-cell *matCellDef="let element"> {{element.etudiant.matricule}} </td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="Nom">
+        <th mat-header-cell *matHeaderCellDef> Nom </th>
+        <td mat-cell *matCellDef="let element"> {{element.etudiant.nomPrenom.nom}} </td>
+      </ng-container>
+
+      <!-- Weight Column -->
+      <ng-container matColumnDef="Prénom">
+        <th mat-header-cell *matHeaderCellDef> Prénom </th>
+        <td mat-cell *matCellDef="let element"> {{element.etudiant.nomPrenom.prenoms}} </td>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="Actions">
+        <th mat-header-cell *matHeaderCellDef> Action </th>
+        <td mat-cell *matCellDef="let element"> We'll see </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator [length]="responseSize"
+                   [pageSize]="pageSize"
+                   [pageSizeOptions]="[1, 5, 10, 25, 100]"
+                   showFirstLastButtons="true"
+                   (page)="setPage($event)"
+                   aria-label="Select page">
+    </mat-paginator>
 
   </mat-tab>
 </mat-tab-group>

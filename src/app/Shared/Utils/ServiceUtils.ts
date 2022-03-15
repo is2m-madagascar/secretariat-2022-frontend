@@ -9,7 +9,6 @@ const makeParams = (params?: { params: String; value: any }[]) => {
 };
 
 const makePage = (page?: Number, pageSize?: Number) => {
-  console.log(`PageSize is ${pageSize}`);
   const mPage = page ? 'page=' + page : 'page=1';
   const mPageSize = pageSize ? 'pageSize=' + pageSize : 'pageSize=10';
   return mPage + '&' + mPageSize;
