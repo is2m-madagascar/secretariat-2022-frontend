@@ -1,23 +1,18 @@
-import MyAppBar from "../MyAppBar/MyAppBar";
+import MyDrawer from "../MyDrawer/MyDrawer";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { useCookies } from "react-cookie";
-import { useState, useEffect, useMemo } from "react";
+import { cookieService } from "../../../Shared/Services/Utils/CookiesService";
+import { useState, useMemo } from "react";
 import CssBaseline from "@mui/material/CssBaseline";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 const Container = () => {
-  const [cookies, setCookie] = useCookies(["cookie-name"]);
-
-  useEffect(() => {
-    if (!cookies.darkMode) {
-      setCookie("darkMode", "light");
-    }
-  });
-
-  const [darkMode, setDarkMode] = useState(cookies.darkMode);
+  //darkMode handling
+  const [darkMode, setDarkMode] = useState(
+    cookieService.getCookie("darkMode") || "light"
+  );
 
   const setMode = (mode) => {
-    setCookie("darkMode", mode);
+    cookieService.setCookie("darkMode", mode);
     setDarkMode(mode);
   };
 
@@ -36,14 +31,12 @@ const Container = () => {
       }),
     [prefersDarkMode]
   );
+  //end darkMode handling
 
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <div>
-        <MyAppBar setTheme={toogleDarkMode}></MyAppBar>
-        <div>Je suis un container</div>
-      </div>
+      <MyDrawer setTheme={toogleDarkMode} theme={darkMode} />
     </ThemeProvider>
   );
 };

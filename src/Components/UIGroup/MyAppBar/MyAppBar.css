@@ -1,0 +1,10 @@
+.menuIcon{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.distribute{
+    display: flex;
+    justify-content: space-between;
+}
