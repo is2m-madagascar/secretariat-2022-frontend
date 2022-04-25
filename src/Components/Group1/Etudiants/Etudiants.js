@@ -1,22 +1,10 @@
-import { useEffect } from "react";
-import Paper from "@mui/material/Paper";
-import Box from "@mui/material/Box";
+import EtudiantsList from "./EtudiantsList";
+import EtudiantsToolbox from "./EtudiantsToolbox";
+import UIContainer from "../../UIGroup/UIContainer/UIContainer";
 
 const Etudiant = () => {
   return (
-    <Box
-      sx={{
-        display: "flex",
-        "& > :not(style)": {
-          m: 1,
-          width: 50,
-          height: 50,
-        },
-      }}
-    >
-      <Paper variant="outlined" />
-      <Paper variant="outlined" />
-    </Box>
+    <UIContainer list={<EtudiantsList />} toolbox={<EtudiantsToolbox />} />
   );
 };
 
