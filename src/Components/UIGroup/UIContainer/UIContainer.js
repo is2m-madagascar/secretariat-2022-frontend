@@ -2,7 +2,7 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 
-const UIContainer = ({list, toolbox}) => {
+const UIContainer = ({ list, toolbox }) => {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={2} mt={2}>
